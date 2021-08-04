@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/account_title">
+        <Preference
+            android:key="logout"
+            android:title="@string/logout_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/social_title">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="public"
+            android:title="@string/public_title" />
+
+        <EditTextPreference
+            android:key="nickName"
+            android:title="@string/nickname_title"
+            />
+
+        <EditTextPreference
+            android:key="realName"
+            android:title="@string/realname_title"
+            />
+
+        <EditTextPreference
+            android:key="gender"
+           android:title="@string/gender_title"
+           />
+
+        <EditTextPreference
+            android:key="school"
+            android:title="@string/school_title"
+            />
+
+        <EditTextPreference
+            android:key="department"
+           android:title="@string/department_title"
+           />
+    </PreferenceCategory>
+
+</PreferenceScreen>

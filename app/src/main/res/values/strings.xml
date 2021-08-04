@@ -1,0 +1,114 @@
+<resources>
+    <string name="app_name">When2Eat</string>
+
+    <!--- Hints -->
+    <string name="username_or_email_hint">Username or E-mail</string>
+    <string name="username_hint">Username</string>
+    <string name="email_hint">E-mail</string>
+    <string name="password_hint">Password</string>
+    <string name="event_name_hint">Title</string>
+
+    <!--- Toast Messages -->
+    <string name="error_message">Error: %1$s</string>
+    <string name="error">Error</string>
+    <string name="no_internet_access_or_internal_error">No internet access or internal error</string>
+    <string name="signup_successful">Register successful</string>
+    <string name="login_successful">Welcome.</string>
+    <string name="operation_successful">Operation Successful</string>
+
+    <!--- Other messages -->
+    <string name="ok">OK</string>
+    <string name="user_details">User: %1$s\nGender: %2$s\nSchool &amp; Department: %3$s</string>
+
+    <!--- Tab Labels -->
+    <string-array name="main_activity_tab_titles">
+        <item>Events</item>
+        <item>Friends</item>
+        <item>Notifications</item>
+        <item>Settings</item>
+    </string-array>
+    <string-array name="current_group_activity_tab_titles">
+        <item>Members</item>
+        <item>Chat</item>
+        <item>Settings</item>
+    </string-array>
+    <string-array name="friend_fragment_tab_titles">
+        <item>My Friends</item>
+        <item>Friend Requests</item>
+        <item>Find new friend</item>
+    </string-array>
+    <string-array name="event_fragment_tab_titles">
+        <item>My events</item>
+        <item>Create event</item>
+        <item>My Invitations</item>
+        <item>Find New Event</item>
+    </string-array>
+    <string-array name="current_group_friend_fragment_tab_titles">
+        <item>Members</item>
+        <item>Send an invitation</item>
+    </string-array>
+
+    <!--- Preferences -->
+    <string-array name="personal_preferences">
+        <item>nickName</item>
+        <item>realName</item>
+        <item>gender</item>
+        <item>school</item>
+        <item>department</item>
+    </string-array>
+    <string-array name="group_preferences">
+        <item>position</item>
+        <item>title</item>
+    </string-array>
+
+    <!--- User Settings Title -->
+
+    <string name="social_title">Social</string>
+    <string name="nickname_title">Nickname</string>
+    <string name="realname_title">Real Name</string>
+    <string name="school_title">School</string>
+    <string name="department_title">Department</string>
+    <string name="gender_title">Gender</string>
+
+    <string name="account_title">Account</string>
+    <string name="logout_title">Logout</string>
+
+    <string name="public_title">Public to Non-friends</string>
+
+    <!--- Event Title -->
+    <string name="position_title">Location</string>
+    <string name="title">Title</string>
+
+    <!--- Attributes -->
+    <string-array name="attributes">
+        <item>_id</item>
+        <item>name</item>
+        <item>email</item>
+        <item>school</item>
+        <item>nickName</item>
+        <item>realName</item>
+        <item>gender</item>
+        <item>department</item>
+        <item>public</item>
+    </string-array>
+
+    <!--- Button Labels -->
+    <string name="login_hint">Login</string>
+    <string name="register_hint">Register</string>
+    <string name="create_hint">Create</string>
+    <string name="friend_accept">Accept</string>
+    <string name="friend_decline">Decline</string>
+    <string name="friend_add_friend">Add Friend</string>
+    <string name="friend_delete">Delete</string>
+    <string name="event_attend">Attend</string>
+    <string name="event_leave">Leave</string>
+
+    <!--- Other Pages Title -->
+    <string name="friend_request_title">Friend requests</string>
+    <string name="search_friend_title">Search a friend</string>
+    <string name="list_friend_title">My friends</string>
+    <string name="goto_my_group_title">Go to my current group</string>
+    <string name="search_group_title">Search a group</string>
+
+    <string name="hello_blank_fragment">Hello Blank Fragment</string>
+</resources>
