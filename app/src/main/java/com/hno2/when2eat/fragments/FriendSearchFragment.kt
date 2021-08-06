@@ -11,9 +11,7 @@ import com.hno2.when2eat.BuildConfig
 import com.hno2.when2eat.R
 import com.hno2.when2eat.adapters.OneButtonAdapter
 import com.hno2.when2eat.adapters.UnitData
-import com.hno2.when2eat.tools.DataSaver
-import com.hno2.when2eat.tools.NetworkProcessor
-import com.hno2.when2eat.tools.ToastMaker
+import com.hno2.when2eat.tools.*
 import kotlinx.coroutines.*
 import org.json.JSONObject
 
@@ -33,37 +31,38 @@ class FriendSearchFragment : Fragment(), SearchView.OnQueryTextListener, OneButt
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         val url = BuildConfig.Base_URL + "/users?nickNameContain=$query&excludeFriends=true"
-        val returnedJSON = runBlocking {
-            NetworkProcessor().sendRequest(
+        val coroutineScope = CoroutineScope(Dispatchers.Main)
+        coroutineScope.launch {
+            val returnedJSON = NetworkProcessor().sendRequest(
                     activity,
                     Request.Method.GET,
                     url,
                     null,
                     DataSaver().getToken(activity)
             )
-        }
 
-        val data: MutableList<UnitData> = mutableListOf()
-        if (returnedJSON.getInt("statusCode") == 200) {
-            val friendArray = returnedJSON.getJSONArray("users")
-            for (i: Int in (0 until friendArray.length())) {
-                val json = friendArray.getJSONObject(i)
-                data.add(UnitData(json.getString("name"),
-                        "@" + json.getString("name"), //TODO: change name
-                        json.getString("_id"),
-                        "https://i.imgur.com/0F2Xfhs.png"))
+            val data: MutableList<UnitData> = mutableListOf()
+            if (returnedJSON.getInt("statusCode") == 200) {
+                val friendArray = returnedJSON.getJSONArray("users")
+                for (i: Int in (0 until friendArray.length())) {
+                    val json = friendArray.getJSONObject(i)
+                    data.add(UnitData(json.getString("name"),
+                            "@" + json.getString("name"), //TODO: change name
+                            json.getString("_id"),
+                            "https://i.imgur.com/0F2Xfhs.png"))
+                }
             }
-        }
 
-        val recyclerView: RecyclerView = root.findViewById(R.id.friend_search_recycler_view)
-        recyclerView.adapter = OneButtonAdapter(
-                data,
-                mutableListOf(
-                        getString(R.string.friend_add_friend)
-                ),
-                this@FriendSearchFragment
-        )
-        recyclerView.layoutManager = LinearLayoutManager(activity)
+            val recyclerView: RecyclerView = root.findViewById(R.id.friend_search_recycler_view)
+            recyclerView.adapter = OneButtonAdapter(
+                    data,
+                    mutableListOf(
+                            getString(R.string.friend_add_friend)
+                    ),
+                    this@FriendSearchFragment
+            )
+            recyclerView.layoutManager = LinearLayoutManager(activity)
+        }
 
         return false
     }
@@ -73,7 +72,12 @@ class FriendSearchFragment : Fragment(), SearchView.OnQueryTextListener, OneButt
     }
 
     override fun onItemClick(id: String, position: Int) {
-        TODO("Not yet implemented")
+        val coroutineScope = CoroutineScope(Dispatchers.Main)
+        coroutineScope.launch {
+            val friendData = NetworkDataGetter().getUserByID(activity, id)
+            val message = DataParser().friendDataParser(requireActivity(), friendData)
+            DialogMaker(message).show(requireActivity().supportFragmentManager, "details")
+        }
     }
 
     override suspend fun onBtn1Click(id: String, position: Int): Boolean {

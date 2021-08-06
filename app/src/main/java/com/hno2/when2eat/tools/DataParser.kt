@@ -7,9 +7,9 @@ import org.json.JSONObject
 import android.content.res.Resources
 
 class DataParser {
-    private fun parseHandle(id: String, realName: String, nickName: String): String {
+    private fun parseHandle(name: String, realName: String, nickName: String): String {
         return when {
-            realName.isEmpty() and nickName.isEmpty() -> id
+            realName.isEmpty() and nickName.isEmpty() -> name
             realName.isNotEmpty() and nickName.isNotEmpty() -> "$realName($nickName)"
             realName.isNotEmpty() -> realName
             else -> nickName
@@ -17,7 +17,7 @@ class DataParser {
     }
 
     fun friendDataParser(c: Context, friendData: JSONObject): String {
-        val id = friendData.getString("_id")
+        val id = friendData.getString("name")
         val realName = try {
             friendData.getString("realName")
         } catch (e: JSONException) {

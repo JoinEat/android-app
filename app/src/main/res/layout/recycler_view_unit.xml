@@ -4,14 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="130dp"
     android:gravity="center_vertical"
-    android:background="?android:attr/selectableItemBackground"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:background="?android:attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
+        android:layout_margin="10dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:gravity="center_vertical"
@@ -20,9 +19,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="5dp">
+            >
 
             <ImageView
                 android:id="@+id/avatar"

@@ -12,10 +12,7 @@ import com.hno2.when2eat.BuildConfig
 import com.hno2.when2eat.R
 import com.hno2.when2eat.adapters.TwoButtonAdapter
 import com.hno2.when2eat.adapters.UnitData
-import com.hno2.when2eat.tools.DataSaver
-import com.hno2.when2eat.tools.NetworkDataGetter
-import com.hno2.when2eat.tools.NetworkProcessor
-import com.hno2.when2eat.tools.ToastMaker
+import com.hno2.when2eat.tools.*
 import kotlinx.coroutines.*
 
 
@@ -52,7 +49,12 @@ class FriendRequestFragment : Fragment(), TwoButtonAdapter.OnItemClickHandler {
     }
 
     override fun onItemClick(id: String, position: Int) {
-        TODO("Not yet implemented")
+        val coroutineScope = CoroutineScope(Dispatchers.Main)
+        coroutineScope.launch {
+            val friendData = NetworkDataGetter().getUserByID(activity, id)
+            val message = DataParser().friendDataParser(requireActivity(), friendData)
+            DialogMaker(message).show(requireActivity().supportFragmentManager, "details")
+        }
     }
 
     override suspend fun onBtn1Click(id: String, position: Int):Boolean {
