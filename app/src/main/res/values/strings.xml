@@ -18,7 +18,7 @@
 
     <!--- Other messages -->
     <string name="ok">OK</string>
-    <string name="user_details">User: %1$s\nGender: %2$s\nSchool &amp; Department: %3$s</string>
+    <string name="user_details">Gender: %1$s\nSchool &amp; Department: %2$s</string>
 
     <!--- Tab Labels -->
     <string-array name="main_activity_tab_titles">

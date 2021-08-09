@@ -52,8 +52,7 @@ class FriendRequestFragment : Fragment(), TwoButtonAdapter.OnItemClickHandler {
         val coroutineScope = CoroutineScope(Dispatchers.Main)
         coroutineScope.launch {
             val friendData = NetworkDataGetter().getUserByID(activity, id)
-            val message = DataParser().friendDataParser(requireActivity(), friendData)
-            DialogMaker(message).show(requireActivity().supportFragmentManager, "details")
+            DialogMaker(requireActivity(), friendData).show(requireActivity().supportFragmentManager, "details")
         }
     }
 

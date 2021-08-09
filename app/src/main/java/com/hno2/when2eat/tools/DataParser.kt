@@ -16,7 +16,7 @@ class DataParser {
         }
     }
 
-    fun friendDataParser(c: Context, friendData: JSONObject): String {
+    fun friendHandleParser(c: Context, friendData: JSONObject): String {
         val id = friendData.getString("name")
         val realName = try {
             friendData.getString("realName")
@@ -28,7 +28,10 @@ class DataParser {
         } catch (e: JSONException) {
             ""
         }
-        val handle = parseHandle(id, realName, nickName)
+        return parseHandle(id, realName, nickName)
+    }
+
+    fun friendDataParser(c: Context, friendData: JSONObject): String {
         val gender = try {
             friendData.getString("gender")
         } catch (e: JSONException) {
@@ -45,6 +48,6 @@ class DataParser {
             ""
         }
 
-        return c.getString(R.string.user_details,handle,gender,school + department)
+        return c.getString(R.string.user_details,gender,school + department)
     }
 }
