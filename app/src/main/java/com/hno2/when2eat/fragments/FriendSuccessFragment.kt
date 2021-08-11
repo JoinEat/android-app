@@ -31,7 +31,8 @@ class FriendSuccessFragment : Fragment(), OneButtonAdapter.OnItemClickHandler {
     }
 
     private fun initVariables(root: View) {
-        GlobalScope.launch {
+        val coroutineScope = CoroutineScope(Dispatchers.Main)
+        coroutineScope.launch{
             val friendData: MutableList<UnitData> =
                     NetworkDataGetter().getFriend(
                             requireActivity(),
@@ -39,7 +40,6 @@ class FriendSuccessFragment : Fragment(), OneButtonAdapter.OnItemClickHandler {
                             DataSaver().getData(requireActivity(), "_id")
                     )
 
-            Handler(Looper.getMainLooper()).post {
                 val recyclerView: RecyclerView =
                         root.findViewById(R.id.friend_success_recycler_view)
                 recyclerView.adapter = OneButtonAdapter(
@@ -50,7 +50,6 @@ class FriendSuccessFragment : Fragment(), OneButtonAdapter.OnItemClickHandler {
                         this@FriendSuccessFragment
                 )
                 recyclerView.layoutManager = LinearLayoutManager(activity)
-            }
         }
     }
 
@@ -58,7 +57,6 @@ class FriendSuccessFragment : Fragment(), OneButtonAdapter.OnItemClickHandler {
         val coroutineScope = CoroutineScope(Dispatchers.Main)
         coroutineScope.launch {
             val friendData = NetworkDataGetter().getUserByID(activity, id)
-            //val message = DataParser().friendDataParser(requireActivity(), friendData)
             DialogMaker(requireActivity(), friendData).show(requireActivity().supportFragmentManager, "details")
         }
     }
