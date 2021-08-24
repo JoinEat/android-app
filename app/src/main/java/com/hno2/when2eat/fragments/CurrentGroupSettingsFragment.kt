@@ -28,13 +28,27 @@ class CurrentGroupSettingsFragment : PreferenceFragmentCompat() {
         val keys = resources.getStringArray(R.array.group_preferences)
         for (key in keys) {
             val pref: Preference = findPreference<Preference>(key) as Preference
-            val defaultValue = try {
-                (activity as CurrentGroupActivity).eventJSON.getString(key)
-            } catch (e: JSONException) {
-                ""
+
+            val coroutineScope = CoroutineScope(Dispatchers.Main)
+            coroutineScope.launch {
+                val url = BuildConfig.Base_URL + "/events/" + (activity as CurrentGroupActivity).eventID
+                val eventJSON = withContext(Dispatchers.IO) {
+                    NetworkProcessor().sendRequest(
+                        requireActivity(),
+                        Request.Method.GET,
+                        url,
+                        null,
+                        DataSaver().getToken(activity)
+                    ) }
+
+                val defaultValue = try {
+                    eventJSON.getString(key)
+                } catch (e: JSONException) {
+                    ""
+                }
+                pref.summary = defaultValue
+                pref.setDefaultValue(defaultValue)
             }
-            pref.summary = defaultValue
-            pref.setDefaultValue(defaultValue)
         }
     }
 
@@ -46,7 +60,7 @@ class CurrentGroupSettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun onChangeSettings(key: String, changedName: String?) {
-        val url = BuildConfig.Base_URL + "/events/" + (activity as CurrentGroupActivity).eventJSON.getString("_id")
+        val url = BuildConfig.Base_URL + "/events/" + (activity as CurrentGroupActivity).eventID
 
         val body = JSONObject()
         body.put(key, changedName)

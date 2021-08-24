@@ -10,17 +10,17 @@ import com.hno2.when2eat.adapters.CurrentGroupActivityViewPagerAdapter
 import org.json.JSONObject
 
 class CurrentGroupActivity : AppCompatActivity() {
-    lateinit var eventJSON: JSONObject
+    lateinit var eventID: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_current_group)
 
         val extras: Bundle? = intent.extras
-        eventJSON = if (extras?.getString("eventJSON") == null) {
-            JSONObject()
+        eventID = if (extras?.getString("eventID") == null) {
+            ""
         } else {
-            JSONObject(extras.getString("eventJSON"))
+            extras.getString("eventID")!!
         }
 
         val tabLayout = findViewById<TabLayout>(R.id.event_tabs)

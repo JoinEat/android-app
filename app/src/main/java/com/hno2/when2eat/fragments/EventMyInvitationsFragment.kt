@@ -51,7 +51,7 @@ class EventMyInvitationsFragment : Fragment(), OneButtonAdapter.OnItemClickHandl
                     val json = eventArray.getJSONObject(i)
                     data.add(UnitData(json.getJSONObject("eventId").getString("title"),
                             "@" + json.getJSONObject("eventId").getString("creator"), //TODO: change name
-                            json.getString("_id"),
+                            json.getJSONObject("eventId").getString("_id"),
                             "https://i.imgur.com/0F2Xfhs.png"))
                 }
             }
@@ -73,6 +73,18 @@ class EventMyInvitationsFragment : Fragment(), OneButtonAdapter.OnItemClickHandl
     }
 
     override suspend fun onBtn1Click(id: String, position: Int): Boolean {
-        TODO("Not yet implemented")
+        val url = BuildConfig.Base_URL + "/events/" + id + "/invitations"
+        val coroutineScope = CoroutineScope(Dispatchers.Main)
+        val returnedJSON = withContext(Dispatchers.IO) {
+            NetworkProcessor().sendRequest(
+                    activity,
+                    Request.Method.PUT,
+                    url,
+                    null,
+                    DataSaver().getToken(activity)
+            )
+        }
+
+        return (returnedJSON.getInt("statusCode") == 200)
     }
 }

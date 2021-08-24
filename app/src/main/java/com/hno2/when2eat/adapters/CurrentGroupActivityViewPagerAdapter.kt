@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.hno2.when2eat.fragments.CurrentGroupChatFragment
+import com.hno2.when2eat.fragments.CurrentGroupChatFragment2
 import com.hno2.when2eat.fragments.CurrentGroupFriendFragment
 import com.hno2.when2eat.fragments.CurrentGroupSettingsFragment
 
@@ -12,7 +13,7 @@ class CurrentGroupActivityViewPagerAdapter(fragmentActivity: FragmentActivity): 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> CurrentGroupFriendFragment()
-            1 -> CurrentGroupChatFragment()
+            1 -> CurrentGroupChatFragment2()
             else -> CurrentGroupSettingsFragment()
         }
     }

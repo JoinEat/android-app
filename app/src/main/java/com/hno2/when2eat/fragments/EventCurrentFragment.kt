@@ -53,7 +53,7 @@ class EventCurrentFragment : Fragment(), NoButtonAdapter.OnItemClickHandler {
         val coroutineScope = CoroutineScope(Dispatchers.Main)
         coroutineScope.launch {
             val currentGroupIntent = Intent(activity, CurrentGroupActivity::class.java)
-            currentGroupIntent.putExtra("eventJSON", NetworkDataGetter().getEventByID(activity, id).toString())
+            currentGroupIntent.putExtra("eventID", id)
             startActivity(currentGroupIntent)
         }
     }

@@ -94,9 +94,6 @@ class FriendSearchFragment : Fragment(), SearchView.OnQueryTextListener, OneButt
         }
         ToastMaker().toaster(activity, returnedJSON)
 
-        return when (returnedJSON.getInt("statusCode")) {
-            200 -> true
-            else -> false
-        }
+        return (returnedJSON.getInt("statusCode") == 200)
     }
 }

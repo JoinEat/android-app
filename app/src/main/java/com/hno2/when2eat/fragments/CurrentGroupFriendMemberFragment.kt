@@ -30,7 +30,7 @@ class CurrentGroupFriendMemberFragment : Fragment(), NoButtonAdapter.OnItemClick
     }
 
     private fun initVariables(root: View) {
-        val url = BuildConfig.Base_URL + "/events/" + (activity as CurrentGroupActivity).eventJSON.getString("_id") + "/members"
+        val url = BuildConfig.Base_URL + "/events/" + (activity as CurrentGroupActivity).eventID + "/members"
         val coroutineScope = CoroutineScope(Dispatchers.Main)
         coroutineScope.launch{
             val returnedJSON = NetworkProcessor().sendRequest(
