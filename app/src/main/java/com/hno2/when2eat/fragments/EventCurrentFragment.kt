@@ -20,17 +20,23 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class EventCurrentFragment : Fragment(), NoButtonAdapter.OnItemClickHandler {
+    private lateinit var root: View
+
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_event_current, container, false)
-        initVariables(root)
+    ): View {
+        root = inflater.inflate(R.layout.fragment_event_current, container, false)
+        setRecyclerView()
         return root
     }
 
-    private fun initVariables(root: View) {
+    override fun onResume() {
+        super.onResume()
+        setRecyclerView()
+    }
 
+    private fun setRecyclerView() {
         val coroutineScope = CoroutineScope(Dispatchers.Main)
         coroutineScope.launch {
             val eventData: MutableList<UnitData> = withContext(Dispatchers.IO) {
@@ -50,11 +56,8 @@ class EventCurrentFragment : Fragment(), NoButtonAdapter.OnItemClickHandler {
     }
 
     override fun onItemClick(id: String, position: Int) {
-        val coroutineScope = CoroutineScope(Dispatchers.Main)
-        coroutineScope.launch {
-            val currentGroupIntent = Intent(activity, CurrentGroupActivity::class.java)
-            currentGroupIntent.putExtra("eventID", id)
-            startActivity(currentGroupIntent)
-        }
+        val currentGroupIntent = Intent(activity, CurrentGroupActivity::class.java)
+        currentGroupIntent.putExtra("eventID", id)
+        startActivity(currentGroupIntent)
     }
 }

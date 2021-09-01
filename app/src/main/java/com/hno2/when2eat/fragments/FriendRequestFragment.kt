@@ -17,15 +17,21 @@ import kotlinx.coroutines.*
 
 
 class FriendRequestFragment : Fragment(), TwoButtonAdapter.OnItemClickHandler {
+    private lateinit var root:View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val root = inflater.inflate(R.layout.fragment_friend_request, container, false)
-        initVariables(root)
+        root = inflater.inflate(R.layout.fragment_friend_request, container, false)
+        setRecyclerView()
         return root
     }
 
-    private fun initVariables(root: View) {
+    override fun onResume() {
+        super.onResume()
+        setRecyclerView()
+    }
+
+    private fun setRecyclerView() {
         val coroutineScope = CoroutineScope(Dispatchers.Main)
         coroutineScope.launch {
             val friendData: MutableList<UnitData> =

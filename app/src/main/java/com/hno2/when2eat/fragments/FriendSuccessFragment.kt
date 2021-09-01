@@ -22,15 +22,21 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class FriendSuccessFragment : Fragment(), OneButtonAdapter.OnItemClickHandler {
+    private lateinit var root:View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val root = inflater.inflate(R.layout.fragment_friend_success, container, false)
-        initVariables(root)
+                              savedInstanceState: Bundle?): View {
+        root = inflater.inflate(R.layout.fragment_friend_success, container, false)
+        setRecyclerView()
         return root
     }
 
-    private fun initVariables(root: View) {
+    override fun onResume() {
+        super.onResume()
+        setRecyclerView()
+    }
+
+    private fun setRecyclerView() {
         val coroutineScope = CoroutineScope(Dispatchers.Main)
         coroutineScope.launch{
             val friendData: MutableList<UnitData> =

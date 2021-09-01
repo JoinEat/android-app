@@ -20,15 +20,21 @@ import com.hno2.when2eat.tools.NetworkProcessor
 import kotlinx.coroutines.*
 
 class EventMyInvitationsFragment : Fragment(), OneButtonAdapter.OnItemClickHandler {
+    private lateinit var root: View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val root = inflater.inflate(R.layout.fragment_event_my_invitations, container, false)
-        initVariables(root)
+                              savedInstanceState: Bundle?): View {
+        root = inflater.inflate(R.layout.fragment_event_my_invitations, container, false)
+        setRecyclerView()
         return root
     }
 
-    private fun initVariables(root: View) {
+    override fun onResume() {
+        super.onResume()
+        setRecyclerView()
+    }
+
+    private fun setRecyclerView() {
         val url = BuildConfig.Base_URL + "/users/myInvitations"
 
         val coroutineScope = CoroutineScope(Dispatchers.Main)
@@ -74,7 +80,6 @@ class EventMyInvitationsFragment : Fragment(), OneButtonAdapter.OnItemClickHandl
 
     override suspend fun onBtn1Click(id: String, position: Int): Boolean {
         val url = BuildConfig.Base_URL + "/events/" + id + "/invitations"
-        val coroutineScope = CoroutineScope(Dispatchers.Main)
         val returnedJSON = withContext(Dispatchers.IO) {
             NetworkProcessor().sendRequest(
                     activity,
