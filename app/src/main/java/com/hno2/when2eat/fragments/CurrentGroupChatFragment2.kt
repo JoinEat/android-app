@@ -33,6 +33,8 @@ class CurrentGroupChatFragment2 : Fragment() {
     private val mSocket: Socket = IO.socket(BuildConfig.Base_URL)
     private var lastMessageID = "0"
     private lateinit var recyclerViewAdapter: ChatAdapter
+    private lateinit var root: View
+    private lateinit var recyclerView: RecyclerView
 
     private suspend fun updateMessage() {
         val url = BuildConfig.Base_URL + "/events/" + eventID + "/messages?nextKey=" + lastMessageID
@@ -60,9 +62,11 @@ class CurrentGroupChatFragment2 : Fragment() {
         recyclerViewAdapter.appendMessages(data)
         lastMessageID = if (returnedMessageList.length() == 0) "0"
         else returnedMessageList.getJSONObject(returnedMessageList.length() - 1).getString("_id")
+
+        recyclerView.scrollToPosition(recyclerViewAdapter.itemCount-1)
     }
 
-    private suspend fun sendMessage(root: View) {
+    private suspend fun sendMessage() {
         val messageTextArea = root.findViewById<EditText>(R.id.messageEdit)
         val message = messageTextArea.text.toString()
 
@@ -92,11 +96,10 @@ class CurrentGroupChatFragment2 : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val root = inflater.inflate(R.layout.fragment_current_group_chat2, container, false)
+                              savedInstanceState: Bundle?): View {
+        root = inflater.inflate(R.layout.fragment_current_group_chat2, container, false)
 
-        initVariables(root)
-
+        initVariables()
         eventID = (activity as CurrentGroupActivity).eventID
 
         mSocket.connect()
@@ -111,9 +114,8 @@ class CurrentGroupChatFragment2 : Fragment() {
         return root
     }
 
-    private fun initVariables(root: View) {
-        val recyclerView : RecyclerView =
-                root.findViewById(R.id.messageRecyclerView)
+    private fun initVariables() {
+        recyclerView = root.findViewById(R.id.messageRecyclerView)
         recyclerViewAdapter = ChatAdapter(DataSaver().getData(activity,"_id"))
         recyclerView.adapter = recyclerViewAdapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -121,7 +123,7 @@ class CurrentGroupChatFragment2 : Fragment() {
         val sendButton = root.findViewById<Button>(R.id.sendButton)
         sendButton.setOnClickListener {
             val coroutineScope = CoroutineScope(Dispatchers.Main)
-            coroutineScope.launch { sendMessage(root) }
+            coroutineScope.launch { sendMessage() }
         }
     }
 

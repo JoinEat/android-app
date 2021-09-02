@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/content"
-        android:background="@color/light_gray"
+        android:background="@drawable/rounded_corner_gray"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:text="Content"

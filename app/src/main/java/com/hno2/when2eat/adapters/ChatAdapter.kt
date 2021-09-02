@@ -49,12 +49,6 @@ class ChatAdapter(private val authorID: String):RecyclerView.Adapter<RecyclerVie
 
     override fun getItemCount() = dataSet.size
 
-    fun appendSingleMessage(message: ChatUnit) {
-        val originalSize = itemCount
-        dataSet.add(message)
-        notifyItemInserted(originalSize)
-    }
-
     fun appendMessages(messages: MutableList<ChatUnit>) {
         val originalSize = itemCount
         dataSet.addAll(messages)
