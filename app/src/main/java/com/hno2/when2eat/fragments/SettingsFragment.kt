@@ -3,6 +3,7 @@ package com.hno2.when2eat.fragments
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.android.volley.Request
@@ -33,7 +34,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
         for (key in keys) {
             val pref: Preference = findPreference<Preference>(key) as Preference
             val defaultValue = DataSaver().getData(requireActivity(), key)
-            pref.summary = defaultValue
+           // Log.e(key,defaultValue)
+            if (defaultValue is String) pref.summary = defaultValue
             pref.setDefaultValue(defaultValue)
         }
     }

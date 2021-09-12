@@ -42,7 +42,7 @@ class EventCurrentFragment : Fragment(), NoButtonAdapter.OnItemClickHandler {
             val eventData: MutableList<UnitData> = withContext(Dispatchers.IO) {
                     NetworkDataGetter().getEventList(
                             requireActivity(),
-                            DataSaver().getData(requireActivity(), "_id")
+                            DataSaver().getID(activity)
                     ) }
 
             val recyclerView: RecyclerView =

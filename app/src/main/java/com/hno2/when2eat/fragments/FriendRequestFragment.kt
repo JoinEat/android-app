@@ -37,7 +37,7 @@ class FriendRequestFragment : Fragment(), TwoButtonAdapter.OnItemClickHandler {
             val friendData: MutableList<UnitData> =
                     NetworkDataGetter().getFriend(
                             requireActivity(),
-                            "requested", DataSaver().getData(requireActivity(), "_id")
+                            "requested", DataSaver().getID(activity)
                     )
 
             val recyclerView: RecyclerView =

@@ -43,7 +43,7 @@ class FriendSuccessFragment : Fragment(), OneButtonAdapter.OnItemClickHandler {
                     NetworkDataGetter().getFriend(
                             requireActivity(),
                             "success",
-                            DataSaver().getData(requireActivity(), "_id")
+                            DataSaver().getID(activity)
                     )
 
                 val recyclerView: RecyclerView =

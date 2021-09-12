@@ -116,7 +116,7 @@ class CurrentGroupChatFragment2 : Fragment() {
 
     private fun initVariables() {
         recyclerView = root.findViewById(R.id.messageRecyclerView)
-        recyclerViewAdapter = ChatAdapter(DataSaver().getData(activity,"_id"))
+        recyclerViewAdapter = ChatAdapter(DataSaver().getID(activity))
         recyclerView.adapter = recyclerViewAdapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
